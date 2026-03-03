@@ -34,7 +34,7 @@ public class ProductController {
         return ResponseEntity.ok(new ApiResponse("Found Product by Id : "+id,productDto));
     }
 
-    @GetMapping("/getBy/{name}")
+    @GetMapping("/getByName/{name}")
     public ResponseEntity<ApiResponse> getProductsByName(@PathVariable String name){
         List<Product> products = productService.getProductsByName(name);
         if(products.isEmpty()){
@@ -44,7 +44,7 @@ public class ProductController {
         return ResponseEntity.ok(new ApiResponse("Found Products by Name : "+name,convertedProducts));
     }
 
-    @GetMapping("/getBy/{category}")
+    @GetMapping("/getByCategory/{category}")
     public ResponseEntity<ApiResponse> getProductsByCategory(@PathVariable String category){
         List<Product> products = productService.getProductsByCategory(category);
         if(products.isEmpty()){
@@ -54,39 +54,39 @@ public class ProductController {
         return ResponseEntity.ok(new ApiResponse("Found Products by Category : "+category,convertedProducts));
     }
 
-    @GetMapping("/getBy/{Brand}")
-    public ResponseEntity<ApiResponse> getProductsByBrand(@PathVariable String Brand){
-        List<Product> products = productService.getProductsByBrand(Brand);
+    @GetMapping("/getByBrand/{brand}")
+    public ResponseEntity<ApiResponse> getProductsByBrand(@PathVariable String brand){
+        List<Product> products = productService.getProductsByBrand(brand);
         if(products.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No Products found with Brand : "+Brand,null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No Products found with Brand : "+brand,null));
         }
         List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
-        return ResponseEntity.ok(new ApiResponse("Found Products by Brand : "+Brand,convertedProducts));
+        return ResponseEntity.ok(new ApiResponse("Found Products by Brand : "+brand,convertedProducts));
     }
 
     @GetMapping("/getBy/Brand-and-Name")
-    public ResponseEntity<ApiResponse> getProductsByBrandAndName(@RequestParam String Brand,@RequestParam String Name){
-        List<Product> products = productService.getProductsByBrandAndName(Brand,Name);
+    public ResponseEntity<ApiResponse> getProductsByBrandAndName(@RequestParam String brand, @RequestParam String name){
+        List<Product> products = productService.getProductsByBrandAndName(brand, name);
         if(products.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No Products found with Brand and Name : "+Brand +" and "+Name,null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No Products found with Brand and Name : "+brand +" and "+name,null));
         }
         List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
-        return ResponseEntity.ok(new ApiResponse("Found Products by BrandAndName : "+Brand +" and "+Name,convertedProducts));
+        return ResponseEntity.ok(new ApiResponse("Found Products by BrandAndName : "+brand +" and "+name,convertedProducts));
     }
 
     @GetMapping("/getBy/Category-and-Brand")
-    public ResponseEntity<ApiResponse> getProductsByCategoryAndBrand(@RequestParam String Category,@RequestParam String Brand){
-        List<Product> products = productService.getProductsByCategoryAndBrand(Category,Brand);
+    public ResponseEntity<ApiResponse> getProductsByCategoryAndBrand(@RequestParam String category, @RequestParam String brand){
+        List<Product> products = productService.getProductsByCategoryAndBrand(category, brand);
         if(products.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No Products found with Category and Brand : "+Category +" and "+Brand,null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("No Products found with Category and Brand : "+category +" and "+brand,null));
         }
         List<ProductDto> convertedProducts = productService.getConvertedProducts(products);
-        return ResponseEntity.ok(new ApiResponse("Found Products by CategoryAndBrand : "+Category+" and "+Brand,convertedProducts));
+        return ResponseEntity.ok(new ApiResponse("Found Products by CategoryAndBrand : "+category+" and "+brand,convertedProducts));
     }
 
     @GetMapping("/countProductsBy/Brand-and-Name")
-    public ResponseEntity<ApiResponse> countProductsByBrandAndName(@RequestParam String Brand,@RequestParam String Name){
-        return ResponseEntity.ok(new ApiResponse("Count of Products By Brand And Name : "+Brand+" and "+Name,productService.countProductsByBrandAndName(Brand, Name)));
+    public ResponseEntity<ApiResponse> countProductsByBrandAndName(@RequestParam String brand, @RequestParam String name){
+        return ResponseEntity.ok(new ApiResponse("Count of Products By Brand And Name : "+brand+" and "+name,productService.countProductsByBrandAndName(brand, name)));
     }
 
     @PostMapping("/product/add")
